@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AFTERGLOW — Vice City Cover Studio</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">&#10022; AFTERGLOW <span>VICE CITY COVER STUDIO</span></div>
+  <input id="projectTitle" type="text" value="Afterglow" maxlength="30" aria-label="Project title">
+  <div class="top-actions">
+    <button id="undoBtn" type="button">Undo</button>
+    <button id="redoBtn" type="button">Redo</button>
+    <button id="resetBtn" type="button">Reset</button>
+    <select id="sizeSelect" aria-label="Export size">
+      <option value="1080x1080">1080 &times; 1080</option>
+      <option value="1080x1350">1080 &times; 1350</option>
+      <option value="1920x1080">1920 &times; 1080</option>
+      <option value="custom">Custom&hellip;</option>
+    </select>
+    <span id="customSize" style="display:none"><input id="customW" type="number" value="1080" min="320" max="4000">&times;<input id="customH" type="number" value="1080" min="320" max="4000"></span>
+    <button id="exportBtn" type="button" class="primary">Export PNG</button>
+  </div>
+  <p id="status" role="status"></p>
+</header>
+<div class="workspace">
+  <aside class="rail left">
+    <nav class="tabs">
+      <button class="tab active" type="button" data-tab="photos">Photos</button>
+      <button class="tab" type="button" data-tab="layouts">Layouts</button>
+      <button class="tab" type="button" data-tab="directions">Directions</button>
+      <button class="tab" type="button" data-tab="type">Type</button>
+      <button class="tab" type="button" data-tab="grades">Grades</button>
+      <button class="tab" type="button" data-tab="elements">Elements</button>
+    </nav>
+    <section class="tabpanel active" id="tab-photos">
+      <div id="dropZone">Drop 1&ndash;6 photos here, or <label class="filelink">choose files<input id="uploadInput" type="file" accept="image/*" multiple></label></div>
+      <div id="filmstrip"></div>
+      <p class="hint">Click a thumbnail to send it to the selected panel. Photos are processed locally and never leave your machine.</p>
+    </section>
+    <section class="tabpanel" id="tab-layouts">
+      <h2>Layouts</h2>
+      <div id="layoutList"></div>
+    </section>
+    <section class="tabpanel" id="tab-directions">
+      <h2>Art direction</h2>
+      <div id="directionList"></div>
+    </section>
+    <section class="tabpanel" id="tab-type">
+      <h2>Typography</h2>
+      <div id="typeList"></div>
+      <label>Title <input id="titleInput" type="text" maxlength="30"></label>
+      <label>Subtitle <input id="subtitleInput" type="text" maxlength="40"></label>
+      <label>Tagline ribbon <input id="taglineInput" type="text" maxlength="60"></label>
+      <label>Quote <input id="quoteInput" type="text" maxlength="50"></label>
+      <label>Newspaper <input id="paperInput" type="text" maxlength="30"></label>
+    </section>
+    <section class="tabpanel" id="tab-grades">
+      <h2>Color grades</h2>
+      <div id="gradeList"></div>
+      <h3>Manual controls</h3>
+      <div id="manualSliders"></div>
+    </section>
+    <section class="tabpanel" id="tab-elements">
+      <h2>Elements</h2>
+      <label class="check"><input type="checkbox" id="el-seal" checked> Gold seal</label>
+      <label class="check"><input type="checkbox" id="el-barcode" checked> Barcode</label>
+      <label class="check"><input type="checkbox" id="el-quote" checked> Quote strip</label>
+      <label class="check"><input type="checkbox" id="el-stickers" checked> Location stickers</label>
+      <label class="check"><input type="checkbox" id="el-tags" checked> Cast role tags</label>
+      <label class="check"><input type="checkbox" id="el-billing" checked> Billing block</label>
+      <label class="check"><input type="checkbox" id="el-ribbon" checked> Tagline ribbon</label>
+      <label class="check"><input type="checkbox" id="el-grain" checked> Film grain</label>
+    </section>
+  </aside>
+  <main class="stage">
+    <canvas id="cover" width="960" height="540" aria-label="The cover"></canvas>
+    <p id="panelHint">Click a panel to select it &mdash; drag to pan its photo, scroll to zoom.</p>
+  </main>
+  <aside class="rail right">
+    <h2>Selected panel</h2>
+    <p id="inspInfo"></p>
+    <label class="slider">Zoom <input id="inspZoom" type="range" min="1" max="2.5" step="0.05" value="1"></label>
+    <label class="slider">Pan X <input id="inspPanX" type="range" min="-0.5" max="0.5" step="0.01" value="0"></label>
+    <label class="slider">Pan Y <input id="inspPanY" type="range" min="-0.5" max="0.5" step="0.01" value="0"></label>
+    <label class="slider">Focal point <input id="inspFocal" type="range" min="0" max="1" step="0.01" value="0.35"></label>
+    <label class="slider">Rotation <input id="inspRot" type="range" min="-15" max="15" step="1" value="0"></label>
+    <label>Cast role <select id="inspRole"></select></label>
+    <label>Location sticker <select id="inspSticker"></select></label>
+    <p class="hint">Focal point 0.35 keeps faces in frame; raise it to show the lower half of a photo.</p>
+  </aside>
+</div>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
